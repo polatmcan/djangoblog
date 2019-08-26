@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="jumbotron text-center " style="background-color: #0E6655;" >
+    <h2 class="text-white">Hoş geldiniz !</h2>
+    <p class="text-white">Bu blogta geliştiriciler olarak kendi blog yazılarınızı paylaşabilir ve insanlara yardımcı olabilirsiniz.</p>
+    
+    </div>
+
+            <h3 class="text-info">En son yayınlanan yazılar</h3>
+            <hr>
+    
+{% for article in articles %}
+<div class="card-group">
+    <div class="card" style="width:25rem;">
+    
+    {% if article.article_image %}
+        <a href="{% url 'article:detail' article.id %}"><img class="card-img-top img-fluid" src="{{article.article_image.url}}" alt=""></a>
+    {% else %}
+        <a href="{% url 'article:detail' article.id %}"><img class="card-img-top img-fluid" src="/media/wblog2.jpg" alt=""></a>
+    {% endif %}
+    <div class="card-body">
+    <a href="{% url 'article:detail' article.id %}"><h5 class="card-title">{{article.title}}</h5></a>
+    <p class="card-text">{{article.content|safe|truncatewords:20}}</p>
+    <a style="float:right;" href="{% url 'article:detail' article.id %}">Devamını oku</a>
+    <p class="card-text"><small class="text-muted"></small></p> 
+    </div>
+    <div class="card-footer">
+        <small class="text-muted">by {{article.author}}</small>
+    </div>
+</div>  
+
+{% endfor %}
+
+<!--
+<p>
+    {% if request.user.is_authenticated %}
+    
+    {% else %}
+        
+    {% endif %}
+</p>
+-->
+
+{% endblock body %}
